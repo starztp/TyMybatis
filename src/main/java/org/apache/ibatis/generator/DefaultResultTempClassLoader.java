@@ -52,9 +52,11 @@ public class DefaultResultTempClassLoader extends ClassLoader {
     private void generateClassFilePath(){
         //File thisfiledir=new File(DefaultResultTempClassLoader.class.getResource("").getPath());
         //log.info("thisfiledir:"+thisfiledir);
-        URL url = this.getClass().getClassLoader()
-                .getResource(mappedStatement.gettempPackage().replaceAll("\\.","/"));
-        File classFileDir = new File(url.getFile()+temp);
+        String userdir=System.getProperty("user.dir")+"/target/classes/";
+        String temppath=mappedStatement.gettempPackage().replaceAll("\\.","/");
+       // URL url = this.getClass().getClassLoader()
+               // .getResource(mappedStatement.gettempPackage().replaceAll("\\.","/"));
+        File classFileDir = new File(userdir+temppath+temp);
         if(!classFileDir.exists()){
             classFileDir.mkdirs();
             try {
@@ -79,7 +81,8 @@ public class DefaultResultTempClassLoader extends ClassLoader {
         String userdir=System.getProperty("user.dir")+"/src/main/java/";
         //URL url = this.getClass().getClassLoader()
                 //.getResource(userdir+mappedStatement.gettempPackage().replaceAll("\\.","/"));
-        File javaFileDir = new File(userdir+mappedStatement.gettempPackage().replaceAll("\\.","/")+temp);
+        File javaFileDir = new File(userdir+mappedStatement.gettempPackage().replaceAll("\\.",
+                "/")+temp);
         if(!javaFileDir.exists()){
             javaFileDir.mkdirs();
             javaFileDir.createNewFile();
